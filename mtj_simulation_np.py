@@ -79,14 +79,9 @@ def calcMSeries(t_axis, h, t_0, m_0, noiseFlag = False):
         m_rk4 = []
         m_prev = m_0
         t_prev = t_0
-        
-        # H_t = v_sd*np.random.normal(0,1)/h #thermal field
-        # H_t = sigma*np.random.normal(0,1) #thermal field from normalized
-        # H_eff = np.array([0, 0, float(H_k*m_0[2])]) + np.multiply(demag_const, m_0) + H_t
-        # H_eff = np.array([0, 0, float(H_k*m_0[2])]) + np.multiply(demag_const, m_0) + np.array([H_t, H_t, H_t])
-        # H_eff = np.array([0, 0, float(H_k*m_0[2])]) + np.multiply(demag_const, m_0) + np.array([thermalConst*np.random.normal(0,1),
-        #                                                                                         thermalConst*np.random.normal(0,1),
-        #                                                                                         thermalConst*np.random.normal(0,1)])
+        H_eff = np.array([0, 0, float(H_k*m_0[2])]) + np.multiply(demag_const, m_0) + np.array([thermalConst*np.random.normal(0,1),
+                                                                                                thermalConst*np.random.normal(0,1),
+                                                                                                thermalConst*np.random.normal(0,1)])
         H_eff = np.array([0, 0, float(H_k*m_0[2])]) + np.multiply(demag_const, m_0)
         for t in t_axis:
             print("#################################################################")
@@ -96,14 +91,9 @@ def calcMSeries(t_axis, h, t_0, m_0, noiseFlag = False):
             m_rk4.append(new_m)
             m_prev = new_m
             t_prev = t
-            # H_t = v_sd*np.random.normal(0,1)/h #thermal field
-            # H_t = sigma*np.random.normal(0,1) #thermal field from normalized
-
-            # H_eff = np.array([0, 0, float(H_k*new_m[2])]) + np.multiply(demag_const, new_m) + H_t
-            # H_eff = np.array([0, 0, float(H_k*new_m[2])]) + np.multiply(demag_const, new_m) + np.array([thermalConst*np.random.normal(0,1),
-            #                                                                                             thermalConst*np.random.normal(0,1),
-            #                                                                                             thermalConst*np.random.normal(0,1)])
-            H_eff = np.array([0, 0, float(H_k*new_m[2])]) + np.multiply(demag_const, new_m)
+            H_eff = np.array([0, 0, float(H_k*new_m[2])]) + np.multiply(demag_const, new_m) + np.array([thermalConst*np.random.normal(0,1),
+                                                                                                        thermalConst*np.random.normal(0,1),
+                                                                                                        thermalConst*np.random.normal(0,1)])
             print("new H_eff:"+str(H_eff))
 
     else:
@@ -140,7 +130,6 @@ def plotM(t_axis, m_list, title,msg=''):
     mz = [float(item[2]) for item in m_list]
 
     # plot result
-    import pdb; pdb.set_trace()
     fig = plt.figure()
     ax = fig.add_subplot(1, 1, 1)
 
@@ -236,26 +225,3 @@ elapsedTime = time.time() - start
 # t_axis = np.asnumpy(t_axis)
 print("elapsed = {}".format(str(elapsedTime)))
 plotM(t_axis, m_rk4_noise, "I_c=200muA no noise 3.5ns", "elapsed = {}".format(str(elapsedTime)))
-
-########################### clip ###########################
-
-# fig = plt.figure()
-# fig.subplots_adjust(hspace=1, wspace=1.5)
-# ax = fig.add_subplot(3, 1, 1)
-# plt.plot(t_axis, mx, '.r-',linewidth=0.1, markersize=0.1, label='mx')
-# plt.title('mx')
-# plt.xlabel("t/s")
-# plt.ylabel("mx,my,mz")
-
-# ax = fig.add_subplot(3, 1, 2)
-# plt.plot(t_axis, my, '.g-',linewidth=0.1, markersize=0.1, label='my')
-# plt.title('my')
-# plt.xlabel("t/s")
-# plt.ylabel("mx,my,mz")
-
-# ax = fig.add_subplot(3, 1, 3)
-# plt.plot(t_axis, mz, '.b-',linewidth=0.1, markersize=0.1, label='mz')
-# plt.title('mz')
-# plt.xlabel("t/s")
-# plt.ylabel("mx,my,mz")
-# plt.savefig('I_c=200muA no noise 3.5ns separated.png')

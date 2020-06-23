@@ -130,7 +130,6 @@ def plotM(t_axis, m_list, title,msg=''):
     mz = [float(item[2]) for item in m_list]
 
     # plot result
-    # import pdb; pdb.set_trace()
     fig = plt.figure()
     ax = fig.add_subplot(1, 1, 1)
 
